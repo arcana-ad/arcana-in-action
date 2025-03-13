@@ -1,7 +1,7 @@
 import os
 import logging
 from contextlib import asynccontextmanager
-from enum import Enum
+from enum import StrEnum
 
 from arcana_codex import (
     AdUnitsFetchModel,
@@ -14,10 +14,19 @@ from starlette.responses import FileResponse
 from transformers import pipeline
 
 
-class SupportedModelPipes(Enum):
-    TinyLlama = pipeline("text-generation", model="TinyLlama/TinyLlama_v1.1")
-    SmolLLM2 = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-1.7B-Instruct")
-    SmolVLM = pipeline("image-text-to-text", model="HuggingFaceTB/SmolVLM-Instruct")
+class SupportedModelPipes(StrEnum):
+    TinyLlama = "tinyllama"
+    SmolLLM2 = "smolllm2"
+    SmolVLM = "smolvlm"
+
+
+tinyllama_pipeline = pipeline("text-generation", model="TinyLlama/TinyLlama_v1.1")
+smolllm2_pipeline = pipeline(
+    "text-generation", model="HuggingFaceTB/SmolLM2-1.7B-Instruct"
+)
+smolvlm_pipeline = pipeline(
+    "image-text-to-text", model="HuggingFaceTB/SmolVLM-Instruct"
+)
 
 
 class ChatRequest(BaseModel):
@@ -60,8 +69,16 @@ def chat(payload: ChatRequest, request: Request):
     fetch_payload = AdUnitsFetchModel(query=payload.message)
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
+    match payload.model:
+        case SupportedModelPipes.TinyLlama:
+            ai_pipeline = tinyllama_pipeline
+        case SupportedModelPipes.SmolLLM2:
+            ai_pipeline = smolllm2_pipeline
+        case SupportedModelPipes.SmolVLM:
+            ai_pipeline = smolvlm_pipeline
+
     ai_response = (
-        payload.model.value(
+        ai_pipeline(
             [{"role": "user", "content": f"{payload.message}"}],
             do_sample=False,
             temperature=0.8,
