@@ -15,7 +15,7 @@ from transformers import pipeline
 
 
 class SupportedModelPipes(Enum):
-    Qwen25 = pipeline("text-generation", model="Qwen/Qwen2.5-1.5B-Instruct")
+    TinyLlama = pipeline("text-generation", model="TinyLlama/TinyLlama_v1.1")
     SmolLLM2 = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-1.7B-Instruct")
     SmolVLM = pipeline("image-text-to-text", model="HuggingFaceTB/SmolVLM-Instruct")
 
