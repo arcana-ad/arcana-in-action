@@ -45,6 +45,34 @@
             </div>
         </header>
 
+        <!-- Model selector -->
+        <div class="border-b border-gray-200 py-3 px-4">
+            <div class="max-w-screen-xl mx-auto flex items-center">
+                <div class="relative" id="model-selector-container">
+                    <button id="model-dropdown-button"
+                        class="flex items-center justify-between w-64 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span id="selected-model-text">Select a model</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-chevron-down">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div id="model-dropdown"
+                        class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg hidden">
+                        <ul class="py-1">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="TinyLlama">
+                                TinyLlama</li>
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="SmolLLM2">
+                                SmolLLM2</li>
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="SmolVLM">
+                                SmolVLM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Chat container -->
         <div id="chat-container" class="flex-1 overflow-y-auto py-4 px-4 md:px-0">
             <div class="max-w-screen-md mx-auto">
@@ -265,7 +293,42 @@
             const loadingIndicator = document.getElementById('loading');
             const suggestionButtons = document.querySelectorAll('.max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6 button');
 
+            // Model selector elements
+            const modelDropdownButton = document.getElementById('model-dropdown-button');
+            const modelDropdown = document.getElementById('model-dropdown');
+            const modelOptions = document.querySelectorAll('.model-option');
+            const selectedModelText = document.getElementById('selected-model-text');
 
+            // Default model
+            let selectedModel = 'SmolLLM2';
+
+            // Toggle dropdown
+            modelDropdownButton.addEventListener('click', () => {
+                modelDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!modelDropdownButton.contains(e.target) && !modelDropdown.contains(e.target)) {
+                    modelDropdown.classList.add('hidden');
+                }
+            });
+
+            // Handle model selection
+            modelOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    selectedModel = option.getAttribute('data-value');
+                    selectedModelText.textContent = option.textContent;
+                    modelDropdown.classList.add('hidden');
+
+                    // Add visual indication of selected model
+                    modelOptions.forEach(opt => opt.classList.remove('bg-blue-50', 'text-blue-700'));
+                    option.classList.add('bg-blue-50', 'text-blue-700');
+                });
+            });
+
+            // Set default selected model
+            modelOptions[0].click();
 
             // Function to add a message to the chat
             function formatMessage(text) {
@@ -413,7 +476,10 @@
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ message }),
+                        body: JSON.stringify({
+                            message: message,
+                            model: selectedModel
+                        }),
                     });
 
                     if (!response.ok) {

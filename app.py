@@ -62,7 +62,11 @@ def chat(payload: ChatRequest, request: Request):
 
     ai_response = (
         payload.model.value(
-            [{"role": "user", "content": f"{payload.message}"}], do_sample=False
+            [{"role": "user", "content": f"{payload.message}"}],
+            do_sample=False,
+            temperature=0.8,
+            top_p=0.95,
+            max_new_tokens=1024,
         )[0]
         .get("generated_text", [{}, {}])[1]
         .get("content", "")
