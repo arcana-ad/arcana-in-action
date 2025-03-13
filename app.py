@@ -61,7 +61,7 @@ def chat(payload: ChatRequest, request: Request):
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
     ai_response = (
-        payload.model(
+        payload.model.value(
             [{"role": "user", "content": f"{payload.message}"}], do_sample=False
         )[0]
         .get("generated_text", [{}, {}])[1]
