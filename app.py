@@ -1,7 +1,7 @@
+import os
 import logging
 from contextlib import asynccontextmanager
 from enum import Enum
-from pathlib import Path
 
 from arcana_codex import (
     AdUnitsFetchModel,
@@ -37,11 +37,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
     # Set API key in FastAPI app
-    app.ARCANA_API_KEY = (
-        Path("/run/secrets/ARCANA_API_KEY").read_text().splitlines()[0]
-        if len(Path("/run/secrets/ARCANA_API_KEY").read_text().splitlines()) > 0
-        else ""
-    )
+    app.ARCANA_API_KEY = os.environ.get("ARCANA_API_KEY", "")
 
     logging.info("Application started")
 
