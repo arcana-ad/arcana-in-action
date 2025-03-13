@@ -16,12 +16,12 @@ from transformers import pipeline
 
 class SupportedModelPipes(Enum):
     Qwen25 = pipeline("text-generation", model="Qwen/Qwen2.5-1.5B-Instruct")
-    Gemma3 = pipeline("text-generation", model="google/gemma-3-1b-it")
+    SmolLLM2 = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-1.7B-Instruct")
     SmolVLM = pipeline("image-text-to-text", model="HuggingFaceTB/SmolVLM-Instruct")
 
 
 class ChatRequest(BaseModel):
-    model: SupportedModelPipes = SupportedModelPipes.Gemma3
+    model: SupportedModelPipes = SupportedModelPipes.SmolLLM2
     message: str
 
 
@@ -88,7 +88,5 @@ def chat(payload: ChatRequest, request: Request):
 
 
 @app.get("/")
-# async def read_index():
-#     return FileResponse("test1.html")
-def greet_json():
-    return {"hello": "world"}
+def frontend():
+    return FileResponse("frontend.html")

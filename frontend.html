@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#3b82f6',
+                            foreground: '#ffffff',
+                        },
+                        secondary: {
+                            DEFAULT: '#f3f4f6',
+                            foreground: '#1f2937',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-white text-gray-800 font-['Inter']">
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="border-b border-gray-200 p-4">
+            <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-medium">OpenGPT with <span class="font-semibold"
+                            style="color: #067ff3;">Ar</span><span class="font-semibold"
+                            style="color: #f7cd1b;">ca</span><span class="font-semibold"
+                            style="color: #07b682;">na</span></h1>
+                </div>
+
+                <nav class="flex items-center space-x-6">
+                    <a href="https://arcana.ad/" class="text-gray-600 hover:text-gray-900 font-medium">Home</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Chat container -->
+        <div id="chat-container" class="flex-1 overflow-y-auto py-4 px-4 md:px-0">
+            <div class="max-w-screen-md mx-auto">
+                <!-- Initial welcome message -->
+                <div class="flex flex-col items-center justify-center mt-16 mb-8">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-2xl font-semibold mb-4">
+                        AR
+                    </div>
+                    <h2 class="text-2xl font-semibold text-center">Hello, User</h2>
+                    <p class="text-2xl text-center">How can I help you today?</p>
+                </div>
+
+                <!-- Messages will be added here -->
+            </div>
+        </div>
+
+        <!-- Loading indicator -->
+        <div id="loading" class="hidden">
+            <div class="max-w-screen-md mx-auto">
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                        <span class="font-semibold text-sm">AR</span>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <div class="typing-indicator">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestion buttons -->
+        <div class="max-w-screen-md mx-auto px-4 md:px-0 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+                <div class="font-medium">Create a short 3 scene video script</div>
+                <div class="text-gray-500 text-sm">set in a cyberpunk world run by AI</div>
+            </button>
+            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+                <div class="font-medium">Write a python code</div>
+                <div class="text-gray-500 text-sm">for a simple, functional web app</div>
+            </button>
+            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+                <div class="font-medium">Help me study</div>
+                <div class="text-gray-500 text-sm">vocabulary for a college entrance exam</div>
+            </button>
+            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+                <div class="font-medium">Give me ideas</div>
+                <div class="text-gray-500 text-sm">for a LinkedIn post for my recent promotion</div>
+            </button>
+        </div>
+
+        <!-- Input area -->
+        <div class="border-t border-gray-200 p-4">
+            <div class="max-w-screen-md mx-auto">
+                <form id="chat-form" class="relative">
+                    <div class="flex items-center bg-white border border-gray-300 rounded-full shadow-sm">
+                        <button type="button" class="p-3 text-gray-400 hover:text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-plus">
+                                <path d="M5 12h14" />
+                                <path d="M12 5v14" />
+                            </svg>
+                        </button>
+                        <input type="text" id="user-input" class="flex-1 py-3 px-2 bg-transparent focus:outline-none"
+                            placeholder="Send a Message" autocomplete="off">
+                        <button type="button" class="p-3 text-gray-400 hover:text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-mic">
+                                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <path d="M12 19v3" />
+                            </svg>
+                        </button>
+                        <button type="submit" class="p-3 text-gray-400 hover:text-gray-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-up">
+                                <path d="m12 19-7-7 7-7" />
+                                <path d="M5 12h14" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Footer text -->
+                <div class="text-center text-gray-400 text-sm mt-3">
+                    LLMs can make mistakes. Verify important information.
+                </div>
+            </div>
+        </div>
+
+        <!-- Help button -->
+        <button
+            class="fixed bottom-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-help-circle">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <path d="M12 17h.01" />
+            </svg>
+        </button>
+    </div>
+
+    <style>
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+        }
+
+        .dot {
+            height: 8px;
+            width: 8px;
+            margin-right: 4px;
+            border-radius: 50%;
+            background-color: #6b7280;
+            display: inline-block;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(0.7);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .message-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-content strong {
+            font-weight: 600;
+        }
+
+        .message-content em {
+            font-style: normal;
+            color: #4B5563;
+        }
+
+        .message-content code {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            background-color: #f1f5f9;
+            padding: 0.1em 0.3em;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+            border: 1px solid #e2e8f0;
+        }
+
+        .message-content pre {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            overflow-x: auto;
+        }
+
+        .message-content pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            font-size: 0.9em;
+            display: block;
+            white-space: pre;
+        }
+
+        .message-content ul,
+        .message-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .message-content ul li,
+        .message-content ol li {
+            margin-bottom: 0.25rem;
+        }
+
+        .message-content blockquote {
+            border-left: 3px solid #cbd5e1;
+            padding-left: 1rem;
+            margin: 0.75rem 0;
+            color: #64748b;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+            const chatContainer = document.getElementById('chat-container');
+            const loadingIndicator = document.getElementById('loading');
+            const suggestionButtons = document.querySelectorAll('.max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6 button');
+
+
+
+            // Function to add a message to the chat
+            function formatMessage(text) {
+                // First, preserve code blocks by replacing them with placeholders
+                const codeBlocks = [];
+                text = text.replace(/\`\`\`([\s\S]*?)\`\`\`/g, function (match, code) {
+                    const id = codeBlocks.length;
+                    codeBlocks.push(code.trim());
+                    return `__CODE_BLOCK_${id}__`;
+                });
+
+                // Handle inline code
+                const inlineCodes = [];
+                text = text = text.replace(/`([^`]+)`/g, function (match, code) {
+                    const id = inlineCodes.length;
+                    inlineCodes.push(code);
+                    return `__INLINE_CODE_${id}__`;
+                });
+
+                // Replace ** with proper styling
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                // Handle numbered lists
+                text = text.replace(/(\d+\.\s[^*]*?)(?=\d+\.|$)/g, '<div class="mb-3">$1</div>');
+
+                // Handle sections with asterisks
+                text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                // Handle unordered lists
+                text = text.replace(/^- (.*?)$/gm, '<li>$1</li>');
+                text = text.replace(/<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs, function (match) {
+                    return '<ul>' + match + '</ul>';
+                });
+
+                // Handle ordered lists
+                text = text.replace(/^(\d+)\. (.*?)$/gm, '<li>$2</li>');
+                text = text.replace(/<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs, function (match) {
+                    return '<ol>' + match + '</ol>';
+                });
+
+                // Handle blockquotes
+                text = text.replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>');
+
+                // Add proper spacing between sections
+                text = text.split('\n').map(line => line.trim()).filter(line => line).join('</p><p>');
+
+                // Restore code blocks
+                codeBlocks.forEach((code, i) => {
+                    text = text.replace(`__CODE_BLOCK_${i}__`, `</p><pre><code>${escapeHtml(code)}</code></pre><p>`);
+                });
+
+                // Restore inline code
+                inlineCodes.forEach((code, i) => {
+                    text = text.replace(`__INLINE_CODE_${i}__`, `<code>${escapeHtml(code)}</code>`);
+                });
+
+                return `<p>${text}</p>`;
+            }
+
+            // Helper function to escape HTML in code blocks
+            function escapeHtml(text) {
+                return text
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            // Function to add a message to the chat
+            function addMessage(content, isUser = false) {
+                // Hide the welcome message when chat starts
+                const welcomeMessage = chatContainer.querySelector('.flex.flex-col.items-center.justify-center');
+                if (welcomeMessage) {
+                    welcomeMessage.remove();
+                }
+
+                // Hide suggestion buttons when chat starts
+                const suggestionContainer = document.querySelector('.max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6');
+                if (suggestionContainer && !suggestionContainer.classList.contains('hidden')) {
+                    suggestionContainer.classList.add('hidden');
+                }
+
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'max-w-screen-md mx-auto mb-6';
+
+                const formattedContent = isUser ? content : formatMessage(content);
+
+                const html = `
+          <div class="flex items-start ${isUser ? 'justify-end' : ''}">
+            ${!isUser ? `
+              <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                <span class="font-semibold text-sm">AR</span>
+              </div>
+            ` : ''}
+            <div class="${isUser ? 'bg-blue-50 text-blue-800' : 'bg-gray-100 text-gray-800'} p-3 rounded-lg max-w-[80%] message-content">
+              ${formattedContent}
+            </div>
+            ${isUser ? `
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+              </div>
+            ` : ''}
+          </div>
+        `;
+
+                messageDiv.innerHTML = html;
+                chatContainer.appendChild(messageDiv);
+
+                // Scroll to bottom
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            // Function to show loading indicator
+            function showLoading() {
+                loadingIndicator.classList.remove('hidden');
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+
+            // Function to hide loading indicator
+            function hideLoading() {
+                loadingIndicator.classList.add('hidden');
+            }
+
+            // Handle form submission
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const message = userInput.value.trim();
+                if (!message) return;
+
+                // Add user message to chat
+                addMessage(message, true);
+
+                // Clear input
+                userInput.value = '';
+
+                // Show loading indicator
+                showLoading();
+
+                try {
+                    // Send message to API
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+
+                    const data = await response.json();
+
+                    // Hide loading indicator
+                    hideLoading();
+
+                    // Add AI response to chat
+                    addMessage(data.response);
+
+                } catch (error) {
+                    console.error('Error:', error);
+
+                    // Hide loading indicator
+                    hideLoading();
+
+                    // Add error message
+                    addMessage('Sorry, there was an error processing your request. Please try again.');
+                }
+            });
+
+            // Handle suggestion button clicks
+            suggestionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const mainText = button.querySelector('.font-medium').textContent;
+                    const subText = button.querySelector('.text-gray-500').textContent;
+                    const fullText = `${mainText} ${subText}`;
+
+                    // Set the input value
+                    userInput.value = fullText;
+
+                    // Submit the form
+                    chatForm.dispatchEvent(new Event('submit'));
+                });
+            });
+
+            // Focus input on page load
+            userInput.focus();
+        });
+    </script>
+</body>
+
+</html>
