@@ -16,12 +16,12 @@ from transformers import pipeline
 
 class SupportedModelPipes(StrEnum):
     TinyLlama = "tinyllama"
-    SmolLLM2 = "smolllm2"
+    SmolLLM2 = "smollm2"
     SmolVLM = "smolvlm"
 
 
 tinyllama_pipeline = pipeline("text-generation", model="TinyLlama/TinyLlama_v1.1")
-smolllm2_pipeline = pipeline(
+smollm2_pipeline = pipeline(
     "text-generation", model="HuggingFaceTB/SmolLM2-1.7B-Instruct"
 )
 smolvlm_pipeline = pipeline(
@@ -73,7 +73,7 @@ def chat(payload: ChatRequest, request: Request):
         case SupportedModelPipes.TinyLlama:
             ai_pipeline = tinyllama_pipeline
         case SupportedModelPipes.SmolLLM2:
-            ai_pipeline = smolllm2_pipeline
+            ai_pipeline = smollm2_pipeline
         case SupportedModelPipes.SmolVLM:
             ai_pipeline = smolvlm_pipeline
 
@@ -81,7 +81,7 @@ def chat(payload: ChatRequest, request: Request):
         ai_pipeline(
             [{"role": "user", "content": f"{payload.message}"}],
             do_sample=False,
-            max_new_tokens=1024,
+            max_new_tokens=512,
         )[0]
         .get("generated_text", [{}, {}])[1]
         .get("content", "")
