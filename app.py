@@ -15,14 +15,10 @@ from transformers import pipeline
 
 
 class SupportedModelPipes(StrEnum):
-    TinyLlama = "tinyllama"
-    Qwen = "qwen"
     SmolLLM2 = "smollm2"
     SmolVLM = "smolvlm"
 
 
-tinyllama_pipeline = pipeline("text-generation", model="TinyLlama/TinyLlama_v1.1")
-qwen_pipeline = pipeline("text-generation", model="Qwen/Qwen2.5-0.5B-Instruct")
 smollm2_pipeline = pipeline(
     "text-generation", model="HuggingFaceTB/SmolLM2-135M-Instruct"
 )
@@ -72,10 +68,6 @@ def chat(payload: ChatRequest, request: Request):
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
     match payload.model:
-        case SupportedModelPipes.TinyLlama:
-            ai_pipeline = tinyllama_pipeline
-        case SupportedModelPipes.Qwen:
-            ai_pipeline = qwen_pipeline
         case SupportedModelPipes.SmolLLM2:
             ai_pipeline = smollm2_pipeline
         case SupportedModelPipes.SmolVLM:
