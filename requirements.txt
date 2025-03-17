@@ -3,4 +3,4 @@ uvicorn[standard]
 arcana-codex
 pydantic
 pillow
-llama-cpp-python -i https://abetlen.github.io/llama-cpp-python/whl/cpu
+llama-cpp-python

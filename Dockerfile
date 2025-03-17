@@ -1,7 +1,7 @@
 FROM python:3.13-slim-bookworm
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc python3-dev g++ ninja-build pkg-config git \
+    && apt-get install -y --no-install-recommends gcc g++ cmake git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
