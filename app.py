@@ -11,15 +11,16 @@ from arcana_codex import (
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from starlette.responses import FileResponse
-from transformers import pipeline
+from llama_cpp import Llama
 
 
 class SupportedModelPipes(StrEnum):
     SmolLLM2 = "smollm2"
 
 
-smollm2_pipeline = pipeline(
-    "text-generation", model="HuggingFaceTB/SmolLM2-135M-Instruct"
+smollm2_pipeline = Llama.from_pretrained(
+    repo_id="HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
+    filename="smollm2-360m-instruct-q8_0.gguf",
 )
 
 
@@ -67,15 +68,11 @@ def chat(payload: ChatRequest, request: Request):
         case SupportedModelPipes.SmolLLM2:
             ai_pipeline = smollm2_pipeline
 
-    ai_response = (
-        ai_pipeline(
-            [{"role": "user", "content": f"{payload.message}"}],
-            do_sample=False,
-            max_new_tokens=512,
-        )[0]
-        .get("generated_text", [{}, {}])[1]
-        .get("content", "")
-    )
+    ai_response = ai_pipeline.create_chat_completion(
+        messages=[{"role": "user", "content": f"{payload.message}"}],
+        max_tokens=512,
+        seed=8,
+    )["choices"][0]["message"]["content"].strip()
 
     integrate_payload = AdUnitsIntegrateModel(
         ad_unit_ids=[

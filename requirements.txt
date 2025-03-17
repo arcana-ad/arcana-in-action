@@ -1,6 +1,6 @@
 fastapi-slim
 uvicorn[standard]
-transformers[torch]
 arcana-codex
 pydantic
 pillow
+llama-cpp-python
