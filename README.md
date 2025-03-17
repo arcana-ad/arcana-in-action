@@ -1,8 +1,8 @@
 ---
-title: Docker Demo
-emoji: 🐠
-colorFrom: green
-colorTo: red
+title: Arcana In Action
+emoji: 💸
+colorFrom: blue
+colorTo: green
 sdk: docker
 pinned: false
 ---
