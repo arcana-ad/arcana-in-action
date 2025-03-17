@@ -16,14 +16,10 @@ from transformers import pipeline
 
 class SupportedModelPipes(StrEnum):
     SmolLLM2 = "smollm2"
-    SmolVLM = "smolvlm"
 
 
 smollm2_pipeline = pipeline(
     "text-generation", model="HuggingFaceTB/SmolLM2-135M-Instruct"
-)
-smolvlm_pipeline = pipeline(
-    "image-text-to-text", model="HuggingFaceTB/SmolVLM-500M-Instruct"
 )
 
 
@@ -70,8 +66,6 @@ def chat(payload: ChatRequest, request: Request):
     match payload.model:
         case SupportedModelPipes.SmolLLM2:
             ai_pipeline = smollm2_pipeline
-        case SupportedModelPipes.SmolVLM:
-            ai_pipeline = smolvlm_pipeline
 
     ai_response = (
         ai_pipeline(
