@@ -15,12 +15,34 @@ from llama_cpp import Llama
 
 
 class SupportedModelPipes(StrEnum):
+    Gemma3 = "gemma3"
+    QwenOpenR1 = "qwen-open-r1"
     SmolLLM2 = "smollm2"
+    SmolLLM2Reasoning = "smollm2-reasoning"
 
 
 smollm2_pipeline = Llama.from_pretrained(
-    repo_id="HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
-    filename="smollm2-360m-instruct-q8_0.gguf",
+    repo_id="tensorblock/SmolLM2-135M-Instruct-GGUF",
+    filename="SmolLM2-135M-Instruct-Q8_0.gguf",
+    verbose=False,
+)
+
+smollm2_reasoning_pipeline = Llama.from_pretrained(
+    repo_id="tensorblock/Reasoning-SmolLM2-135M-GGUF",
+    filename="Reasoning-SmolLM2-135M-Q8_0.gguf",
+    verbose=False,
+)
+
+qwen_open_r1_pipeline = Llama.from_pretrained(
+    repo_id="tensorblock/Qwen2.5-0.5B-Open-R1-Distill-GGUF",
+    filename="Qwen2.5-0.5B-Open-R1-Distill-Q8_0.gguf",
+    verbose=False,
+)
+
+gemma_3_pipeline = Llama.from_pretrained(
+    repo_id="ggml-org/gemma-3-1b-it-GGUF",
+    filename="gemma-3-1b-it-Q8_0.gguf",
+    verbose=False,
 )
 
 
@@ -65,8 +87,14 @@ def chat(payload: ChatRequest, request: Request):
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
     match payload.model:
+        case SupportedModelPipes.Gemma3:
+            ai_pipeline = gemma_3_pipeline
+        case SupportedModelPipes.QwenOpenR1:
+            ai_pipeline = qwen_open_r1_pipeline
         case SupportedModelPipes.SmolLLM2:
             ai_pipeline = smollm2_pipeline
+        case SupportedModelPipes.SmolLLM2Reasoning:
+            ai_pipeline = smollm2_reasoning_pipeline
 
     ai_response = ai_pipeline.create_chat_completion(
         messages=[{"role": "user", "content": f"{payload.message}"}],
