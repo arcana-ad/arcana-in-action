@@ -4,3 +4,4 @@ arcana-codex
 pydantic
 pillow
 llama-cpp-python
+huggingface-hub
