@@ -1,5 +1,6 @@
-import os
 import logging
+import os
+import time
 from contextlib import asynccontextmanager
 from enum import StrEnum
 
@@ -8,10 +9,10 @@ from arcana_codex import (
     AdUnitsIntegrateModel,
     ArcanaCodexClient,
 )
+from llama_cpp import Llama
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from starlette.responses import FileResponse
-from llama_cpp import Llama
 
 
 class SupportedModelPipes(StrEnum):
@@ -86,6 +87,8 @@ def chat(payload: ChatRequest, request: Request):
     fetch_payload = AdUnitsFetchModel(query=payload.message)
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
+    logger.info(f"Using {payload.model}")
+
     match payload.model:
         case SupportedModelPipes.Gemma3:
             ai_pipeline = gemma_3_pipeline
@@ -96,11 +99,16 @@ def chat(payload: ChatRequest, request: Request):
         case SupportedModelPipes.SmolLLM2Reasoning:
             ai_pipeline = smollm2_reasoning_pipeline
 
+    inference_start_time = time.perf_counter()
     ai_response = ai_pipeline.create_chat_completion(
         messages=[{"role": "user", "content": f"{payload.message}"}],
         max_tokens=512,
         seed=8,
     )["choices"][0]["message"]["content"].strip()
+    inference_end_time = time.perf_counter()
+
+    elapsed_time = inference_end_time - inference_start_time
+    logger.info(f"Inference took: {elapsed_time:.4f} seconds")
 
     integrate_payload = AdUnitsIntegrateModel(
         ad_unit_ids=[
