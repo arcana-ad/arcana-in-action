@@ -41,6 +41,7 @@
 
                 <nav class="flex items-center space-x-6">
                     <a href="https://arcana.ad/" class="text-gray-600 hover:text-gray-900 font-medium">Home</a>
+                    <button id="logout-button" class="text-gray-600 hover:text-gray-900 font-medium">Logout</button>
                 </nav>
             </div>
         </header>
@@ -297,6 +298,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            const verifiedId = sessionStorage.getItem('verifiedId');
+            if (!verifiedId) {
+                window.location.href = '/login';
+                return;
+            }
+
+            // Logout functionality
+            const logoutButton = document.getElementById('logout-button');
+            logoutButton.addEventListener('click', () => {
+                sessionStorage.removeItem('verifiedId');
+                window.location.href = '/login';
+            });
+
             const chatForm = document.getElementById('chat-form');
             const userInput = document.getElementById('user-input');
             const chatContainer = document.getElementById('chat-container');
@@ -481,10 +496,12 @@
 
                 try {
                     // Send message to API
+                    const verifiedId = sessionStorage.getItem('verifiedId');
                     const response = await fetch('/chat', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${verifiedId}`
                         },
                         body: JSON.stringify({
                             message: message,
@@ -493,6 +510,12 @@
                     });
 
                     if (!response.ok) {
+                        // If unauthorized, redirect to login
+                        if (response.status === 401) {
+                            sessionStorage.removeItem('verifiedId');
+                            window.location.href = '/login';
+                            return;
+                        }
                         throw new Error('API request failed');
                     }
 
