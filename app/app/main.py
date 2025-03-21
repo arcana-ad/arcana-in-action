@@ -176,9 +176,7 @@ def chat(
 ):
     logger.info(f"Received message: {payload.message}")
 
-    client = ArcanaCodexClient(
-        api_key=request.app.ARCANA_API_KEY, base_url="http://gateway-backend/api/public"
-    )
+    client = ArcanaCodexClient(api_key=request.app.ARCANA_API_KEY)
     fetch_payload = AdUnitsFetchModel(query=payload.message)
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
