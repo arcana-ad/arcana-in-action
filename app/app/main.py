@@ -127,7 +127,7 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
 
     app.mongo_db = MongoClient(
         os.environ.get("MONGO_URI", "mongodb+srv://localhost:27017/")
-    )["arcana_hf_demo"]
+    )[os.environ.get("MONGO_DB", "arcana_hf_demo_test")]
 
     logging.info("Application started")
 
