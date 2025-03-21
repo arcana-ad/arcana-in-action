@@ -1,0 +1,28 @@
+services:
+  arcana-in-action:
+    build:
+      context: .
+      target: runtime
+    ports:
+      - 8698:7860
+    networks:
+      - arcana-in-action-net
+      - arcana-gateway-net
+    volumes:
+      - ./app:/app
+    environment:
+      ARCANA_API_KEY: "${ARCANA_API_KEY}"
+      MONGO_URI: "${MONGO_URI}"
+      OPENBLAS_NUM_THREADS: "${OPENBLAS_NUM_THREADS:-4}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://arcana-in-action/health"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+networks:
+  arcana-in-action-net:
+    name: arcana-in-action-network
+  arcana-gateway-net:
+    name: arcana-gateway-network
+    external: true

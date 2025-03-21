@@ -1,7 +1,0 @@
-fastapi-slim
-uvicorn[standard]
-arcana-codex
-pydantic
-pillow
-llama-cpp-python
-huggingface-hub
