@@ -1,6 +1,6 @@
 FROM python:3.13-slim-bookworm AS builder
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy CMAKE_ARGS="-DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS -DGGML_NATIVE=OFF"
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy CMAKE_ARGS="-DCMAKE_BUILD_TYPE=Release -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS -DGGML_BACKEND_DL=ON -DGGML_NATIVE=OFF"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc g++ cmake ninja-build git pkg-config libopenblas-dev \
