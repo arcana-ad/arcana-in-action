@@ -12,6 +12,7 @@ services:
       - ./app:/app
     environment:
       ARCANA_API_KEY: "${ARCANA_API_KEY}"
+      GROQ_API_KEY: "${GROQ_API_KEY}"
       MONGO_URI: "${MONGO_URI}"
       OPENBLAS_NUM_THREADS: "${OPENBLAS_NUM_THREADS:-4}"
     healthcheck:

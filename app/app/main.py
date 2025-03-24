@@ -14,6 +14,7 @@ from arcana_codex import (
 from bson.objectid import ObjectId
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, status
 from fastapi.responses import JSONResponse
+from groq import Groq
 from llama_cpp import Llama
 from pydantic import BaseModel, EmailStr
 from pymongo.mongo_client import MongoClient
@@ -22,35 +23,19 @@ from starlette.responses import FileResponse
 __version__ = "0.0.0"
 
 
-class SupportedModelPipes(StrEnum):
+class SupportedModels(StrEnum):
+    Gemma2 = "gemma2"
     Gemma3 = "gemma3"
-    QwenOpenR1 = "qwen-open-r1"
-    SmolLLM2 = "smollm2"
-    SmolLLM2Reasoning = "smollm2-reasoning"
+    Llama3_3 = "llama3_3"
+    Llama3_1 = "llama3_1"
+    Qwen2_5 = "qwen2_5"
+    Deepseek_R1 = "deepseek_r1"
 
 
 class LogEvent(StrEnum):
     CHAT_INTERACTION = "chat_interaction"
     LOGIN = "login"
 
-
-smollm2_pipeline = Llama.from_pretrained(
-    repo_id="HuggingFaceTB/SmolLM2-360M-Instruct-GGUF",
-    filename="smollm2-360m-instruct-q8_0.gguf",
-    verbose=False,
-)
-
-smollm2_reasoning_pipeline = Llama.from_pretrained(
-    repo_id="tensorblock/Reasoning-SmolLM2-135M-GGUF",
-    filename="Reasoning-SmolLM2-135M-Q8_0.gguf",
-    verbose=False,
-)
-
-qwen_open_r1_pipeline = Llama.from_pretrained(
-    repo_id="tensorblock/Qwen2.5-0.5B-Open-R1-Distill-GGUF",
-    filename="Qwen2.5-0.5B-Open-R1-Distill-Q8_0.gguf",
-    verbose=False,
-)
 
 gemma_3_pipeline = Llama.from_pretrained(
     repo_id="ggml-org/gemma-3-1b-it-GGUF",
@@ -60,7 +45,7 @@ gemma_3_pipeline = Llama.from_pretrained(
 
 
 class ChatRequest(BaseModel):
-    model: SupportedModelPipes = SupportedModelPipes.SmolLLM2
+    model: SupportedModels = SupportedModels.Gemma2
     message: str
 
 
@@ -120,10 +105,30 @@ def verify_authorization_header(
         )
 
 
+def process_groq_chat_request(
+    groq_client: Groq, message: str, model: str
+) -> str | None:
+    return (
+        groq_client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": f"{message}"},
+            ],
+            max_completion_tokens=1024,
+            seed=8,
+            model=model,
+        )
+        .choices[0]
+        .message.content
+    )
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
     # Set API key in FastAPI app
     app.ARCANA_API_KEY = os.environ.get("ARCANA_API_KEY", "")
+
+    app.groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
     app.mongo_db = MongoClient(
         os.environ.get("MONGO_URI", "mongodb+srv://localhost:27017/")
@@ -135,6 +140,8 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
 
     # Clear API key to avoid leaking it
     app.ARCANA_API_KEY = ""
+
+    app.groq_client = None
 
     logging.info("Application stopped")
 
@@ -182,26 +189,53 @@ def chat(
 
     logger.info(f"Using {payload.model}")
 
-    match payload.model:
-        case SupportedModelPipes.Gemma3:
-            ai_pipeline = gemma_3_pipeline
-        case SupportedModelPipes.QwenOpenR1:
-            ai_pipeline = qwen_open_r1_pipeline
-        case SupportedModelPipes.SmolLLM2:
-            ai_pipeline = smollm2_pipeline
-        case SupportedModelPipes.SmolLLM2Reasoning:
-            ai_pipeline = smollm2_reasoning_pipeline
-
     inference_start_time = time.perf_counter()
-    ai_response = ai_pipeline.create_chat_completion(
-        messages=[{"role": "user", "content": f"{payload.message}"}],
-        max_tokens=512,
-        seed=8,
-    )["choices"][0]["message"]["content"].strip()
+    match payload.model:
+        case SupportedModels.Gemma3:
+            llm_response = gemma_3_pipeline.create_chat_completion(
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": f"{payload.message}"},
+                ],
+                max_tokens=512,
+                seed=8,
+            )["choices"][0]["message"]["content"]
+        case SupportedModels.Gemma2:
+            llm_response = process_groq_chat_request(
+                groq_client=request.app.groq_client,
+                message=payload.message,
+                model="gemma2-9b-it",
+            )
+        case SupportedModels.Llama3_3:
+            llm_response = process_groq_chat_request(
+                groq_client=request.app.groq_client,
+                message=payload.message,
+                model="llama-3.3-70b-versatile",
+            )
+        case SupportedModels.Llama3_1:
+            llm_response = process_groq_chat_request(
+                groq_client=request.app.groq_client,
+                message=payload.message,
+                model="llama-3.1-8b-instant",
+            )
+        case SupportedModels.Qwen2_5:
+            llm_response = process_groq_chat_request(
+                groq_client=request.app.groq_client,
+                message=payload.message,
+                model="qwen-2.5-32b",
+            )
+        case SupportedModels.Deepseek_R1:
+            llm_response = process_groq_chat_request(
+                groq_client=request.app.groq_client,
+                message=payload.message,
+                model="deepseek-r1-distill-qwen-32b",
+            )
+
+    ai_response = "" if llm_response is None else llm_response.strip()
     inference_end_time = time.perf_counter()
 
-    elapsed_time = inference_end_time - inference_start_time
-    logger.info(f"Inference took: {elapsed_time:.4f} seconds")
+    inference_elapsed_time = inference_end_time - inference_start_time
+    logger.info(f"Inference took: {inference_elapsed_time:.4f} seconds")
 
     integrate_payload = AdUnitsIntegrateModel(
         ad_unit_ids=[
@@ -210,10 +244,15 @@ def chat(
         base_content=ai_response,
     )
 
+    integration_start_time = time.perf_counter()
     integration_result = client.integrate_ad_units(integrate_payload)
     integrated_content = integration_result.get("response_data", {}).get(
         "integrated_content"
     )
+    integration_end_time = time.perf_counter()
+
+    integration_elapsed_time = integration_end_time - integration_start_time
+    logger.info(f"Integration took: {integration_elapsed_time:.4f} seconds")
 
     request.app.mongo_db["logs"].insert_one(
         {

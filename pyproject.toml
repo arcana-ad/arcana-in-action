@@ -17,6 +17,7 @@ dependencies = [
     "huggingface-hub>=0.29",
     "pymongo>=4.11",
     "email-validator>=2.2",
+    "groq>=0.20",
 ]
 
 
