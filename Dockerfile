@@ -1,6 +1,6 @@
 FROM python:3.13-slim-bookworm AS builder
 
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy CMAKE_ARGS="-DCMAKE_BUILD_TYPE=Release -DGGML_BLAS=ON -DGGML_BLAS_VENDOR=OpenBLAS -DGGML_BACKEND_DL=ON -DGGML_NATIVE=OFF"
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends gcc g++ cmake ninja-build git pkg-config libopenblas-dev \
@@ -14,7 +14,7 @@ ENV PATH="/root/.local/bin/:$PATH"
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --no-install-project --no-group dev --no-group test
+    uv sync --frozen --no-install-project --no-group dev --no-group test -C cmake.args="-DCMAKE_BUILD_TYPE=Release;-DGGML_BLAS=ON;-DGGML_BLAS_VENDOR=OpenBLAS;-DGGML_NATIVE=OFF"
 
 FROM python:3.13-slim-bookworm AS runtime
 
