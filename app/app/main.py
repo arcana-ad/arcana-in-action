@@ -181,13 +181,13 @@ def chat(
     request: Request,
     user: Annotated[User, Depends(verify_authorization_header)],
 ):
-    logger.debug(f"Received message: {payload.message}")
+    logger.info(f"Received message: {payload.message}")
 
     client = ArcanaCodexClient(api_key=request.app.ARCANA_API_KEY)
     fetch_payload = AdUnitsFetchModel(query=payload.message)
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
-    logger.debug(f"Using {payload.model}")
+    logger.info(f"Using {payload.model}")
 
     inference_start_time = time.perf_counter()
     match payload.model:
@@ -235,7 +235,7 @@ def chat(
     inference_end_time = time.perf_counter()
 
     inference_elapsed_time = inference_end_time - inference_start_time
-    logger.debug(f"Inference took: {inference_elapsed_time:.4f} seconds")
+    logger.info(f"Inference took: {inference_elapsed_time:.4f} seconds")
 
     integrate_payload = AdUnitsIntegrateModel(
         ad_unit_ids=[
@@ -252,7 +252,7 @@ def chat(
     integration_end_time = time.perf_counter()
 
     integration_elapsed_time = integration_end_time - integration_start_time
-    logger.debug(f"Integration took: {integration_elapsed_time:.4f} seconds")
+    logger.info(f"Integration took: {integration_elapsed_time:.4f} seconds")
 
     request.app.mongo_db["logs"].insert_one(
         {
