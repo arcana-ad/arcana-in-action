@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -27,14 +28,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-['Inter'] min-h-screen flex flex-col">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-['Inter'] transition-colors duration-200">
     <!-- Header -->
-    <header class="border-b border-gray-200 p-4">
+    <header class="border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
         <div class="max-w-screen-xl mx-auto flex items-center justify-between">
             <div class="flex items-center">
-                <h1 class="text-xl font-medium">OpenGPT with <span class="font-semibold"
-                        style="color: #067ff3;">Ar</span><span class="font-semibold"
-                        style="color: #f7cd1b;">ca</span><span class="font-semibold" style="color: #07b682;">na</span>
+                <h1 class="text-xl font-medium">OpenGPT with <svg
+                        style='display: inline-block; vertical-align: -16.75%; margin-right: -1.5%;'
+                        stroke_linecap='round' stroke_linejoin='round' width='32' height='32' viewBox='0 0 24 24'
+                        xmlns='http://www.w3.org/2000/svg'>
+                        <defs>
+                            <linearGradient id='logo-grad-arm' x1='0%' y1='0%' x2='100%' y2='0%'>
+                                <stop offset='0%' style='stop-color:#f7cd1b; stop-opacity:1' />
+                                <stop offset='100%' style='stop-color:#f9800c; stop-opacity:1' />
+                            </linearGradient>
+                        </defs>
+                        <g>
+                            <path fill='#067ff3'
+                                d='M.227 20.705a5.444 5.444 0 0 0 4.745-2.858l4.48-8.13L7.67 6.613.03 20.368a.227.227 0 0 0 .198.337z' />
+                            <path fill='#07b682'
+                                d='M16.003 13.074l-2.747 1.361 1.944 3.39a5.697 5.682-.012 0 0 4.935 2.869.19.19 0 0 0 .165-.286z' />
+                            <path fill='url(#logo-grad-arm)'
+                                d='M7.99 14.555L6.2 17.872a.03.03 0 0 0 .04.042l17.744-8.798a.03.03 0 0 0-.022-.055l-11.67 3.765-3.851 1.344a.819.819 0 0 0-.451.385z' />
+                            <path class='logo-arm'
+                                d='M10.011 3.3a.683.681-.012 0 0-.733.339L8.19 5.603l4.137 7.212 2.964-.956-4.825-8.234a.683.681-.012 0 0-.455-.324z' />
+                        </g>
+                        <style>
+                            @media (prefers-color-scheme: light) {
+                                .logo-arm {
+
+                                    fill: black
+                                }
+                            }
+
+                            @media (prefers-color-scheme: dark) {
+                                .logo-arm {
+                                    fill: white
+                                }
+                            }
+                        </style>
+                    </svg><span class="font-semibold" style="color: #067ff3;">rc</span><span class="font-semibold"
+                        style="color: #f9800c;">a</span><span class="font-semibold" style="color: #07b682;">na</span>
                 </h1>
             </div>
 
@@ -52,14 +86,14 @@
 
     <main class="flex-1 flex items-center justify-center p-4">
         <div class="w-full max-w-md">
-            <div class="bg-white rounded-lg shadow-md p-5 sm:p-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700/30 p-5 sm:p-8">
                 <div class="text-center mb-6">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-2xl font-semibold mb-4 mx-auto">
+                        class="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-2xl font-semibold mb-4 mx-auto">
                         AR
                     </div>
                     <h2 class="text-xl sm:text-2xl font-semibold">Welcome</h2>
-                    <p class="text-gray-500 text-sm sm:text-base">Sign in to access the <span
+                    <p class="text-gray-500 dark:text-gray-400 text-sm sm:text-base">Sign in to access the <span
                             class="font-medium">OpenGPT with </span><span class="font-semibold"
                             style="color: #067ff3;">Ar</span><span class="font-semibold"
                             style="color: #f7cd1b;">ca</span><span class="font-semibold"
@@ -68,32 +102,37 @@
                 </div>
 
                 <form id="login-form" class="space-y-4">
-                    <div id="error-message" class="hidden bg-red-50 text-red-700 p-3 rounded-md text-sm"></div>
+                    <div id="error-message"
+                        class="hidden bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 p-3 rounded-md text-sm">
+                    </div>
 
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email ID</label>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email
+                            ID</label>
                         <input type="email" id="email" name="email_id"
-                            class="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+                            class="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                             placeholder="Enter your email" required>
                     </div>
 
                     <div>
-                        <label for="access-key" class="block text-sm font-medium text-gray-700 mb-1">Access Key</label>
+                        <label for="access-key"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Access Key</label>
                         <input type="password" id="access-key" name="access_key"
-                            class="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+                            class="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                             placeholder="Enter your access key" required>
                     </div>
 
                     <button type="submit" id="login-button"
-                        class="w-full bg-blue-600 text-white py-2.5 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-base font-medium mt-2">
+                        class="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white py-2.5 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors text-base font-medium mt-2">
                         Sign In
                     </button>
                 </form>
 
-                <div class="mt-8 pt-6 border-t border-gray-200">
-                    <p class="text-gray-600 mb-3 text-center text-sm sm:text-base">Don't have an access key?</p>
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <p class="text-gray-600 dark:text-gray-400 mb-3 text-center text-sm sm:text-base">Don't have an
+                        access key?</p>
                     <a href="https://forms.gle/Xzv6Qsh2GUbd9EZc6" id="request-access-button"
-                        class="flex items-center justify-center w-full bg-gradient-to-r from-indigo-50 to-blue-50 text-blue-600 py-3 px-4 rounded-md hover:from-indigo-100 hover:to-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 border border-blue-200 shadow-sm text-sm sm:text-base font-medium"
+                        class="flex items-center justify-center w-full bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/30 dark:to-blue-900/30 text-blue-600 dark:text-blue-400 py-2.5 px-4 rounded-md hover:from-indigo-100 hover:to-blue-100 dark:hover:from-indigo-900/50 dark:hover:to-blue-900/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 border border-blue-200 dark:border-blue-800 shadow-sm text-sm sm:text-base font-medium"
                         target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -110,12 +149,33 @@
         </div>
     </main>
 
-    <footer class="text-center p-4 text-gray-500 text-sm">
+    <footer class="text-center p-4 text-gray-500 dark:text-gray-400 dark:bg-gray-800 text-sm">
         <p>© 2025 Arcana Inc. All rights reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+
+            // Function to set theme based on system preference
+            function setThemeBasedOnSystemPreference() {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+                updateProductHuntBadge();
+            }
+
+            // Initial theme setup based on system preference
+            setThemeBasedOnSystemPreference();
+
+            // Listen for system preference changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                setThemeBasedOnSystemPreference();
+            });
+
             // Check if user is already logged in
             const verifiedId = sessionStorage.getItem('verifiedId');
             if (verifiedId) {

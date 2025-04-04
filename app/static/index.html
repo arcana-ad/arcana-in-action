@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -27,17 +28,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-white text-gray-800 font-['Inter']">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-['Inter'] transition-colors duration-200">
     <main class="flex flex-col h-screen">
         <!-- Header -->
-        <header class="border-b border-gray-200 p-4">
+        <header class="border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
             <div class="max-w-screen-xl mx-auto flex items-center justify-between">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-medium">OpenGPT with <span class="font-semibold"
-                            style="color: #067ff3;">Ar</span><span class="font-semibold"
-                            style="color: #f7cd1b;">ca</span><span class="font-semibold"
+                    <h1 class="text-xl font-medium">OpenGPT with <svg
+                            style='display: inline-block; vertical-align: -16.75%; margin-right: -1.5%;'
+                            stroke_linecap='round' stroke_linejoin='round' width='32' height='32' viewBox='0 0 24 24'
+                            xmlns='http://www.w3.org/2000/svg'>
+                            <defs>
+                                <linearGradient id='logo-grad-arm' x1='0%' y1='0%' x2='100%' y2='0%'>
+                                    <stop offset='0%' style='stop-color:#f7cd1b; stop-opacity:1' />
+                                    <stop offset='100%' style='stop-color:#f9800c; stop-opacity:1' />
+                                </linearGradient>
+                            </defs>
+                            <g class='tooltip' style='display:inline'>
+                                <path fill='#067ff3'
+                                    d='M.227 20.705a5.444 5.444 0 0 0 4.745-2.858l4.48-8.13L7.67 6.613.03 20.368a.227.227 0 0 0 .198.337z' />
+                                <path fill='#07b682'
+                                    d='M16.003 13.074l-2.747 1.361 1.944 3.39a5.697 5.682-.012 0 0 4.935 2.869.19.19 0 0 0 .165-.286z' />
+                                <path fill='url(#logo-grad-arm)'
+                                    d='M7.99 14.555L6.2 17.872a.03.03 0 0 0 .04.042l17.744-8.798a.03.03 0 0 0-.022-.055l-11.67 3.765-3.851 1.344a.819.819 0 0 0-.451.385z' />
+                                <path class='logo-arm'
+                                    d='M10.011 3.3a.683.681-.012 0 0-.733.339L8.19 5.603l4.137 7.212 2.964-.956-4.825-8.234a.683.681-.012 0 0-.455-.324z' />
+                            </g>
+                            <style>
+                                @media (prefers-color-scheme: light) {
+                                    .logo-arm {
+
+                                        fill: black
+                                    }
+                                }
+
+                                @media (prefers-color-scheme: dark) {
+                                    .logo-arm {
+                                        fill: white
+                                    }
+                                }
+                            </style>
+                        </svg><span class="font-semibold" style="color: #067ff3;">rc</span><span class="font-semibold"
+                            style="color: #f9800c;">a</span><span class="font-semibold"
                             style="color: #07b682;">na</span></h1>
                 </div>
+                <!--  -->
 
                 <nav class="flex flex-row items-center space-x-5">
                     <a href="https://www.producthunt.com/posts/arcana-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-arcana&#0045;2"
@@ -46,19 +81,21 @@
                             alt="Arcana - AI&#0045;Powered&#0032;Monetization&#0058;&#0032;Native&#0032;GenAI&#0032;Ads&#0032;for&#0032;GenAI&#0032;apps | Product Hunt"
                             width="158" />
                     </a>
-                    <a href="https://arcana.ad/" class="text-gray-600 hover:text-gray-900 font-medium">Home</a>
-                    <button id="logout-button" class="text-gray-600 hover:text-gray-900 font-medium">Logout</button>
+                    <a href="https://arcana.ad/"
+                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">Home</a>
+                    <button id="logout-button"
+                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">Logout</button>
                 </nav>
             </div>
         </header>
 
         <!-- Model selector -->
-        <div class="border-b border-gray-200 py-3 px-4">
+        <div class="border-b border-gray-200 dark:border-gray-700 py-3 px-4 bg-gray-50 dark:bg-gray-800">
             <div class="max-w-screen-xl mx-auto flex items-center">
                 <div class="relative" id="model-selector-container">
                     <button id="model-dropdown-button"
-                        class="flex items-center justify-between w-64 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <span id="selected-model-text">Select a model</span>
+                        class="flex items-center justify-between w-64 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <span id="selected-model-text" class="text-gray-800 dark:text-gray-200">Select a model</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-chevron-down">
@@ -66,30 +103,35 @@
                         </svg>
                     </button>
                     <div id="model-dropdown"
-                        class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg hidden">
+                        class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg hidden">
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="gemma2">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                                data-value="gemma2">
                                 Gemma2</li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="llama3_1">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                                data-value="llama3_1">
                                 Llama3.1</li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="llama3_3">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                                data-value="llama3_3">
                                 Llama3.3</li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="qwen2_5">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                                data-value="qwen2_5">
                                 Qwen2.5</li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="deepseek_r1">
                                 Deepseek_R1</li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 cursor-pointer" data-value="gemma3">
+                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                                data-value="gemma3">
                                 Gemma3</li>
                         </ul>
                     </div>
@@ -98,12 +140,12 @@
         </div>
 
         <!-- Chat container -->
-        <div id="chat-container" class="flex-1 overflow-y-auto py-4 px-4 md:px-0">
+        <div id="chat-container" class="flex-1 overflow-y-auto py-4 px-4 md:px-0 bg-white dark:bg-gray-900">
             <div class="max-w-screen-md mx-auto">
                 <!-- Initial welcome message -->
                 <div class="flex flex-col items-center justify-center mt-16 mb-8">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-2xl font-semibold mb-4">
+                        class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-2xl font-semibold mb-4">
                         AR
                     </div>
                     <h2 class="text-2xl font-semibold text-center">Hello, User</h2>
@@ -118,10 +160,11 @@
         <div id="loading" class="hidden">
             <div class="max-w-screen-md mx-auto">
                 <div class="flex items-start mb-4">
-                    <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
                         <span class="font-semibold text-sm">AR</span>
                     </div>
-                    <div class="bg-gray-100 p-3 rounded-lg">
+                    <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
                         <div class="typing-indicator">
                             <span class="dot"></span>
                             <span class="dot"></span>
@@ -134,30 +177,36 @@
 
         <!-- Suggestion buttons -->
         <div class="max-w-screen-md mx-auto px-4 md:px-0 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3">
-            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+            <button
+                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Create a short 3 scene video script</div>
                 <div class="text-gray-500 text-sm">set in a cyberpunk world run by AI</div>
             </button>
-            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+            <button
+                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Write a python code</div>
                 <div class="text-gray-500 text-sm">for a simple, functional web app</div>
             </button>
-            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+            <button
+                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Help me study</div>
                 <div class="text-gray-500 text-sm">vocabulary for a college entrance exam</div>
             </button>
-            <button class="text-left bg-gray-50 hover:bg-gray-100 p-4 rounded-xl transition-colors">
+            <button
+                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Give me ideas</div>
                 <div class="text-gray-500 text-sm">for a LinkedIn post for my recent promotion</div>
             </button>
         </div>
 
         <!-- Input area -->
-        <div class="border-t border-gray-200 p-4">
+        <div class="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
             <div class="max-w-screen-md mx-auto">
                 <form id="chat-form" class="relative">
-                    <div class="flex items-center bg-white border border-gray-300 rounded-full shadow-sm">
-                        <button type="button" class="p-3 text-gray-400 hover:text-gray-600">
+                    <div
+                        class="flex items-center bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full shadow-sm">
+                        <button type="button"
+                            class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-plus">
@@ -165,9 +214,11 @@
                                 <path d="M12 5v14" />
                             </svg>
                         </button>
-                        <input type="text" id="user-input" class="flex-1 py-3 px-2 bg-transparent focus:outline-none"
+                        <input type="text" id="user-input"
+                            class="flex-1 py-3 px-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-200"
                             placeholder="Send a Message" autocomplete="off">
-                        <button type="button" class="p-3 text-gray-400 hover:text-gray-600">
+                        <button type="button"
+                            class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-mic">
@@ -176,7 +227,8 @@
                                 <path d="M12 19v3" />
                             </svg>
                         </button>
-                        <button type="submit" class="p-3 text-gray-400 hover:text-gray-600">
+                        <button type="submit"
+                            class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-arrow-up">
@@ -188,13 +240,13 @@
                 </form>
 
                 <!-- Footer text -->
-                <div class="text-center text-gray-400 text-sm mt-3">
+                <div class="text-center text-gray-400 dark:text-gray-500 text-sm mt-3">
                     LLMs can make mistakes. Verify important information.
                 </div>
             </div>
         </div>
 
-        <footer class="text-center p-4 text-gray-500 text-sm">
+        <footer class="text-center p-4 text-gray-500 dark:text-gray-400 dark:bg-gray-800 text-sm">
             <p>© 2025 Arcana Inc. All rights reserved.</p>
         </footer>
     </main>
@@ -213,6 +265,10 @@
             background-color: #6b7280;
             display: inline-block;
             animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .dark .dot {
+            background-color: #9ca3af;
         }
 
         .dot:nth-child(2) {
@@ -255,6 +311,10 @@
             color: #4B5563;
         }
 
+        .dark .message-content em {
+            color: #9CA3AF;
+        }
+
         .message-content code {
             font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
             background-color: #f1f5f9;
@@ -262,6 +322,11 @@
             border-radius: 0.25rem;
             font-size: 0.9em;
             border: 1px solid #e2e8f0;
+        }
+
+        .dark .message-content code {
+            background-color: #1e293b;
+            border-color: #334155;
         }
 
         .message-content pre {
@@ -272,6 +337,12 @@
             margin: 0.75rem 0;
             overflow-x: auto;
         }
+
+        .dark .message-content pre {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
 
         .message-content pre code {
             background-color: transparent;
@@ -299,10 +370,36 @@
             margin: 0.75rem 0;
             color: #64748b;
         }
+
+        .dark .message-content blockquote {
+            border-left-color: #475569;
+            color: #94a3b8;
+        }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+
+            // Function to set theme based on system preference
+            function setThemeBasedOnSystemPreference() {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+                updateProductHuntBadge();
+            }
+
+            // Initial theme setup based on system preference
+            setThemeBasedOnSystemPreference();
+
+            // Listen for system preference changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                setThemeBasedOnSystemPreference();
+            });
+
             // Check if user is logged in
             const verifiedId = sessionStorage.getItem('verifiedId');
             if (!verifiedId) {
@@ -352,8 +449,8 @@
                     modelDropdown.classList.add('hidden');
 
                     // Add visual indication of selected model
-                    modelOptions.forEach(opt => opt.classList.remove('bg-blue-50', 'text-blue-700'));
-                    option.classList.add('bg-blue-50', 'text-blue-700');
+                    modelOptions.forEach(opt => opt.classList.remove('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/50', 'dark:text-blue-300'));
+                    option.classList.add('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/50', 'dark:text-blue-300');
                 });
             });
 
@@ -450,15 +547,15 @@
                 const html = `
           <div class="flex items-start ${isUser ? 'justify-end' : ''}">
             ${!isUser ? `
-              <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+              <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
                 <span class="font-semibold text-sm">AR</span>
               </div>
             ` : ''}
-            <div class="${isUser ? 'bg-blue-50 text-blue-800' : 'bg-gray-100 text-gray-800'} p-3 rounded-lg max-w-[80%] message-content">
+            <div class="${isUser ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-100' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'} p-3 rounded-lg max-w-[80%] message-content">
               ${formattedContent}
             </div>
             ${isUser ? `
-              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 ml-2">
+              <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-800 dark:text-blue-200 ml-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
               </div>
             ` : ''}
@@ -547,7 +644,7 @@
             suggestionButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const mainText = button.querySelector('.font-medium').textContent;
-                    const subText = button.querySelector('.text-gray-500').textContent;
+                    const subText = button.querySelector('.text-gray-500, .text-gray-400').textContent;
                     const fullText = `${mainText} ${subText}`;
 
                     // Set the input value
