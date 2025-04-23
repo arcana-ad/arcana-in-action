@@ -2,30 +2,34 @@
 <html lang="en" class="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="arcana-project-verification" content="bac75f10-2276-42b3-a839-16ae98baa57c" />
     <title>AI Chat Interface</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
+            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            DEFAULT: '#3b82f6',
-                            foreground: '#ffffff',
+                            DEFAULT: "#3b82f6",
+                            foreground: "#ffffff",
                         },
                         secondary: {
-                            DEFAULT: '#f3f4f6',
-                            foreground: '#1f2937',
+                            DEFAULT: "#f3f4f6",
+                            foreground: "#1f2937",
                         },
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script data-arcana-publisher-key="arc-pub-f8066482a332b510a0dd998dc1c614d419582f2e7326f69236602562c9d419cf"
+        src="https://js.arcana.ad/arcana.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-['Inter'] transition-colors duration-200">
@@ -34,43 +38,46 @@
         <header class="border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
             <div class="max-w-screen-xl mx-auto flex items-center justify-between">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-medium">OpenGPT with <svg
-                            style='display: inline-block; vertical-align: -16.75%; margin-right: -1.5%;'
-                            stroke_linecap='round' stroke_linejoin='round' width='32' height='32' viewBox='0 0 24 24'
-                            xmlns='http://www.w3.org/2000/svg'>
+                    <h1 class="text-xl font-medium">
+                        OpenGPT with
+                        <svg style="
+                  display: inline-block;
+                  vertical-align: -16.75%;
+                  margin-right: -1.5%;
+                " stroke_linecap="round" stroke_linejoin="round" width="32" height="32" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                                <linearGradient id='logo-grad-arm' x1='0%' y1='0%' x2='100%' y2='0%'>
-                                    <stop offset='0%' style='stop-color:#f7cd1b; stop-opacity:1' />
-                                    <stop offset='100%' style='stop-color:#f9800c; stop-opacity:1' />
+                                <linearGradient id="logo-grad-arm" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color: #f7cd1b; stop-opacity: 1" />
+                                    <stop offset="100%" style="stop-color: #f9800c; stop-opacity: 1" />
                                 </linearGradient>
                             </defs>
-                            <g class='tooltip' style='display:inline'>
-                                <path fill='#067ff3'
-                                    d='M.227 20.705a5.444 5.444 0 0 0 4.745-2.858l4.48-8.13L7.67 6.613.03 20.368a.227.227 0 0 0 .198.337z' />
-                                <path fill='#07b682'
-                                    d='M16.003 13.074l-2.747 1.361 1.944 3.39a5.697 5.682-.012 0 0 4.935 2.869.19.19 0 0 0 .165-.286z' />
-                                <path fill='url(#logo-grad-arm)'
-                                    d='M7.99 14.555L6.2 17.872a.03.03 0 0 0 .04.042l17.744-8.798a.03.03 0 0 0-.022-.055l-11.67 3.765-3.851 1.344a.819.819 0 0 0-.451.385z' />
-                                <path class='logo-arm'
-                                    d='M10.011 3.3a.683.681-.012 0 0-.733.339L8.19 5.603l4.137 7.212 2.964-.956-4.825-8.234a.683.681-.012 0 0-.455-.324z' />
+                            <g class="tooltip" style="display: inline">
+                                <path fill="#067ff3"
+                                    d="M.227 20.705a5.444 5.444 0 0 0 4.745-2.858l4.48-8.13L7.67 6.613.03 20.368a.227.227 0 0 0 .198.337z" />
+                                <path fill="#07b682"
+                                    d="M16.003 13.074l-2.747 1.361 1.944 3.39a5.697 5.682-.012 0 0 4.935 2.869.19.19 0 0 0 .165-.286z" />
+                                <path fill="url(#logo-grad-arm)"
+                                    d="M7.99 14.555L6.2 17.872a.03.03 0 0 0 .04.042l17.744-8.798a.03.03 0 0 0-.022-.055l-11.67 3.765-3.851 1.344a.819.819 0 0 0-.451.385z" />
+                                <path class="logo-arm"
+                                    d="M10.011 3.3a.683.681-.012 0 0-.733.339L8.19 5.603l4.137 7.212 2.964-.956-4.825-8.234a.683.681-.012 0 0-.455-.324z" />
                             </g>
                             <style>
                                 @media (prefers-color-scheme: light) {
                                     .logo-arm {
-
-                                        fill: black
+                                        fill: black;
                                     }
                                 }
 
                                 @media (prefers-color-scheme: dark) {
                                     .logo-arm {
-                                        fill: white
+                                        fill: white;
                                     }
                                 }
                             </style>
-                        </svg><span class="font-semibold" style="color: #067ff3;">rc</span><span class="font-semibold"
-                            style="color: #f9800c;">a</span><span class="font-semibold"
-                            style="color: #07b682;">na</span></h1>
+                        </svg><span class="font-semibold" style="color: #067ff3">rc</span><span class="font-semibold"
+                            style="color: #f9800c">a</span><span class="font-semibold" style="color: #07b682">na</span>
+                    </h1>
                 </div>
                 <!--  -->
 
@@ -84,7 +91,9 @@
                     <a href="https://arcana.ad/"
                         class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">Home</a>
                     <button id="logout-button"
-                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">Logout</button>
+                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">
+                        Logout
+                    </button>
                 </nav>
             </div>
         </header>
@@ -107,32 +116,38 @@
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="gemma2">
-                                Gemma2</li>
+                                Gemma2
+                            </li>
                         </ul>
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="llama3_1">
-                                Llama3.1</li>
+                                Llama3.1
+                            </li>
                         </ul>
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="llama3_3">
-                                Llama3.3</li>
+                                Llama3.3
+                            </li>
                         </ul>
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="qwen2_5">
-                                Qwen2.5</li>
+                                Qwen2.5
+                            </li>
                         </ul>
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="deepseek_r1">
-                                Deepseek_R1</li>
+                                Deepseek_R1
+                            </li>
                         </ul>
                         <ul class="py-1">
                             <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
                                 data-value="gemma3">
-                                Gemma3</li>
+                                Gemma3
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -180,27 +195,35 @@
             <button
                 class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Create a short 3 scene video script</div>
-                <div class="text-gray-500 text-sm">set in a cyberpunk world run by AI</div>
+                <div class="text-gray-500 text-sm">
+                    set in a cyberpunk world run by AI
+                </div>
             </button>
             <button
                 class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Write a python code</div>
-                <div class="text-gray-500 text-sm">for a simple, functional web app</div>
+                <div class="text-gray-500 text-sm">
+                    for a simple, functional web app
+                </div>
             </button>
             <button
                 class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Help me study</div>
-                <div class="text-gray-500 text-sm">vocabulary for a college entrance exam</div>
+                <div class="text-gray-500 text-sm">
+                    vocabulary for a college entrance exam
+                </div>
             </button>
             <button
                 class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
                 <div class="font-medium">Give me ideas</div>
-                <div class="text-gray-500 text-sm">for a LinkedIn post for my recent promotion</div>
+                <div class="text-gray-500 text-sm">
+                    for a LinkedIn post for my recent promotion
+                </div>
             </button>
         </div>
 
         <!-- Input area -->
-        <div class="border-t border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
+        <div class="border-t border-gray-200 dark:border-gray-700 px-4 pt-4 bg-white dark:bg-gray-800">
             <div class="max-w-screen-md mx-auto">
                 <form id="chat-form" class="relative">
                     <div
@@ -216,7 +239,7 @@
                         </button>
                         <input type="text" id="user-input"
                             class="flex-1 py-3 px-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-200"
-                            placeholder="Send a Message" autocomplete="off">
+                            placeholder="Send a Message" autocomplete="off" />
                         <button type="button"
                             class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -238,16 +261,14 @@
                         </button>
                     </div>
                 </form>
-
-                <!-- Footer text -->
-                <div class="text-center text-gray-400 dark:text-gray-500 text-sm mt-3">
-                    LLMs can make mistakes. Verify important information.
-                </div>
             </div>
         </div>
 
         <footer class="text-center p-4 text-gray-500 dark:text-gray-400 dark:bg-gray-800 text-sm">
-            <p>© 2025 Arcana Inc. All rights reserved.</p>
+            <p class="text-gray-400 dark:text-gray-500 p-1">
+                LLMs can make mistakes. Verify important information.
+            </p>
+            <p class="p-1">© 2025 Arcana Inc. All rights reserved.</p>
         </footer>
     </main>
 
@@ -308,15 +329,15 @@
 
         .message-content em {
             font-style: normal;
-            color: #4B5563;
+            color: #4b5563;
         }
 
         .dark .message-content em {
-            color: #9CA3AF;
+            color: #9ca3af;
         }
 
         .message-content code {
-            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-family: "Menlo", "Monaco", "Courier New", monospace;
             background-color: #f1f5f9;
             padding: 0.1em 0.3em;
             border-radius: 0.25rem;
@@ -342,7 +363,6 @@
             background-color: #1e293b;
             border-color: #334155;
         }
-
 
         .message-content pre code {
             background-color: transparent;
@@ -378,16 +398,18 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             const html = document.documentElement;
 
             // Function to set theme based on system preference
             function setThemeBasedOnSystemPreference() {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
                 if (prefersDark) {
-                    html.classList.add('dark');
+                    html.classList.add("dark");
                 } else {
-                    html.classList.remove('dark');
+                    html.classList.remove("dark");
                 }
             }
 
@@ -395,61 +417,84 @@
             setThemeBasedOnSystemPreference();
 
             // Listen for system preference changes
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                setThemeBasedOnSystemPreference();
-            });
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", () => {
+                    setThemeBasedOnSystemPreference();
+                });
 
             // Check if user is logged in
-            const verifiedId = sessionStorage.getItem('verifiedId');
+            const verifiedId = sessionStorage.getItem("verifiedId");
             if (!verifiedId) {
-                window.location.href = '/login';
+                window.location.href = "/login";
                 return;
             }
 
             // Logout functionality
-            const logoutButton = document.getElementById('logout-button');
-            logoutButton.addEventListener('click', () => {
-                sessionStorage.removeItem('verifiedId');
-                window.location.href = '/login';
+            const logoutButton = document.getElementById("logout-button");
+            logoutButton.addEventListener("click", () => {
+                sessionStorage.removeItem("verifiedId");
+                window.location.href = "/login";
             });
 
-            const chatForm = document.getElementById('chat-form');
-            const userInput = document.getElementById('user-input');
-            const chatContainer = document.getElementById('chat-container');
-            const loadingIndicator = document.getElementById('loading');
-            const suggestionButtons = document.querySelectorAll('.max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6 button');
+            const chatForm = document.getElementById("chat-form");
+            const userInput = document.getElementById("user-input");
+            const chatContainer = document.getElementById("chat-container");
+            const loadingIndicator = document.getElementById("loading");
+            const suggestionButtons = document.querySelectorAll(
+                ".max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6 button"
+            );
 
             // Model selector elements
-            const modelDropdownButton = document.getElementById('model-dropdown-button');
-            const modelDropdown = document.getElementById('model-dropdown');
-            const modelOptions = document.querySelectorAll('.model-option');
-            const selectedModelText = document.getElementById('selected-model-text');
+            const modelDropdownButton = document.getElementById(
+                "model-dropdown-button"
+            );
+            const modelDropdown = document.getElementById("model-dropdown");
+            const modelOptions = document.querySelectorAll(".model-option");
+            const selectedModelText = document.getElementById(
+                "selected-model-text"
+            );
 
             // Default model
-            let selectedModel = 'gemma2';
+            let selectedModel = "gemma2";
 
             // Toggle dropdown
-            modelDropdownButton.addEventListener('click', () => {
-                modelDropdown.classList.toggle('hidden');
+            modelDropdownButton.addEventListener("click", () => {
+                modelDropdown.classList.toggle("hidden");
             });
 
             // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!modelDropdownButton.contains(e.target) && !modelDropdown.contains(e.target)) {
-                    modelDropdown.classList.add('hidden');
+            document.addEventListener("click", (e) => {
+                if (
+                    !modelDropdownButton.contains(e.target) &&
+                    !modelDropdown.contains(e.target)
+                ) {
+                    modelDropdown.classList.add("hidden");
                 }
             });
 
             // Handle model selection
-            modelOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    selectedModel = option.getAttribute('data-value');
+            modelOptions.forEach((option) => {
+                option.addEventListener("click", () => {
+                    selectedModel = option.getAttribute("data-value");
                     selectedModelText.textContent = option.textContent;
-                    modelDropdown.classList.add('hidden');
+                    modelDropdown.classList.add("hidden");
 
                     // Add visual indication of selected model
-                    modelOptions.forEach(opt => opt.classList.remove('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/50', 'dark:text-blue-300'));
-                    option.classList.add('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/50', 'dark:text-blue-300');
+                    modelOptions.forEach((opt) =>
+                        opt.classList.remove(
+                            "bg-blue-50",
+                            "text-blue-700",
+                            "dark:bg-blue-900/50",
+                            "dark:text-blue-300"
+                        )
+                    );
+                    option.classList.add(
+                        "bg-blue-50",
+                        "text-blue-700",
+                        "dark:bg-blue-900/50",
+                        "dark:text-blue-300"
+                    );
                 });
             });
 
@@ -458,57 +503,81 @@
 
             // Function to add a message to the chat
             function formatMessage(text) {
+                console.log(text)
                 // First, preserve code blocks by replacing them with placeholders
                 const codeBlocks = [];
-                text = text.replace(/\`\`\`([\s\S]*?)\`\`\`/g, function (match, code) {
-                    const id = codeBlocks.length;
-                    codeBlocks.push(code.trim());
-                    return `__CODE_BLOCK_${id}__`;
-                });
+                text = text.replace(
+                    /^```(?:([\w-]+)[ \t]*)?\r?\n([\s\S]*?)\r?\n```/gm,
+                    function (match, lang, code) {
+                        const id = codeBlocks.length;
+                        codeBlocks.push({ lang: lang || null, code: code.trim() });
+                        return `__CODE_BLOCK_${id}__`;
+                    }
+                );
 
                 // Handle inline code
                 const inlineCodes = [];
-                text = text = text.replace(/`([^`]+)`/g, function (match, code) {
+                text = text.replace(/`([^`]+)`/g, function (match, code) {
                     const id = inlineCodes.length;
                     inlineCodes.push(code);
                     return `__INLINE_CODE_${id}__`;
                 });
 
                 // Replace ** with proper styling
-                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
                 // Handle numbered lists
-                text = text.replace(/(\d+\.\s[^*]*?)(?=\d+\.|$)/g, '<div class="mb-3">$1</div>');
+                text = text.replace(
+                    /(\d+\.\s[^*]*?)(?=\d+\.|$)/g,
+                    '<div class="mb-3">$1</div>'
+                );
 
                 // Handle sections with asterisks
-                text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                text = text.replace(/\*(.*?)\*/g, "<em>$1</em>");
 
                 // Handle unordered lists
-                text = text.replace(/^- (.*?)$/gm, '<li>$1</li>');
-                text = text.replace(/<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs, function (match) {
-                    return '<ul>' + match + '</ul>';
-                });
+                text = text.replace(/^- (.*?)$/gm, "<li>$1</li>");
+                text = text.replace(
+                    /<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs,
+                    function (match) {
+                        return "<ul>" + match + "</ul>";
+                    }
+                );
 
                 // Handle ordered lists
-                text = text.replace(/^(\d+)\. (.*?)$/gm, '<li>$2</li>');
-                text = text.replace(/<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs, function (match) {
-                    return '<ol>' + match + '</ol>';
-                });
+                text = text.replace(/^(\d+)\. (.*?)$/gm, "<li>$2</li>");
+                text = text.replace(
+                    /<li>.*?<\/li>(?:\s*<li>.*?<\/li>)+/gs,
+                    function (match) {
+                        return "<ol>" + match + "</ol>";
+                    }
+                );
 
                 // Handle blockquotes
-                text = text.replace(/^> (.*?)$/gm, '<blockquote>$1</blockquote>');
+                text = text.replace(/^> (.*?)$/gm, "<blockquote>$1</blockquote>");
 
                 // Add proper spacing between sections
-                text = text.split('\n').map(line => line.trim()).filter(line => line).join('</p><p>');
+                text = text
+                    .split("\n")
+                    .map((line) => line.trim())
+                    .filter((line) => line)
+                    .join("<p></p>");
 
                 // Restore code blocks
-                codeBlocks.forEach((code, i) => {
-                    text = text.replace(`__CODE_BLOCK_${i}__`, `</p><pre><code>${escapeHtml(code)}</code></pre><p>`);
+                codeBlocks.forEach((codeBlock, i) => {
+                    text = text.replace(
+                        `__CODE_BLOCK_${i}__`,
+                        `<pre><code class="${escapeHtml(codeBlock.lang) ?? "plaintext"
+                        }">${escapeHtml(codeBlock.code)}</code></pre>`
+                    );
                 });
 
                 // Restore inline code
                 inlineCodes.forEach((code, i) => {
-                    text = text.replace(`__INLINE_CODE_${i}__`, `<code>${escapeHtml(code)}</code>`);
+                    text = text.replace(
+                        `__INLINE_CODE_${i}__`,
+                        `<code>${escapeHtml(code)}</code>`
+                    );
                 });
 
                 return `<p>${text}</p>`;
@@ -516,6 +585,7 @@
 
             // Helper function to escape HTML in code blocks
             function escapeHtml(text) {
+                if (!text) return "";
                 return text
                     .replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
@@ -527,39 +597,55 @@
             // Function to add a message to the chat
             function addMessage(content, isUser = false) {
                 // Hide the welcome message when chat starts
-                const welcomeMessage = chatContainer.querySelector('.flex.flex-col.items-center.justify-center');
+                const welcomeMessage = chatContainer.querySelector(
+                    ".flex.flex-col.items-center.justify-center"
+                );
                 if (welcomeMessage) {
                     welcomeMessage.remove();
                 }
 
                 // Hide suggestion buttons when chat starts
-                const suggestionContainer = document.querySelector('.max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6');
-                if (suggestionContainer && !suggestionContainer.classList.contains('hidden')) {
-                    suggestionContainer.classList.add('hidden');
+                const suggestionContainer = document.querySelector(
+                    ".max-w-screen-md.mx-auto.px-4.md\\:px-0.mb-6"
+                );
+                if (
+                    suggestionContainer &&
+                    !suggestionContainer.classList.contains("hidden")
+                ) {
+                    suggestionContainer.classList.add("hidden");
                 }
 
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'max-w-screen-md mx-auto mb-6';
+                const messageDiv = document.createElement("div");
+                messageDiv.className = "max-w-screen-md mx-auto mb-6";
 
                 const formattedContent = isUser ? content : formatMessage(content);
 
                 const html = `
-          <div class="flex items-start ${isUser ? 'justify-end' : ''}">
-            ${!isUser ? `
-              <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
-                <span class="font-semibold text-sm">AR</span>
-              </div>
-            ` : ''}
-            <div class="${isUser ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-100' : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'} p-3 rounded-lg max-w-[80%] message-content">
-              ${formattedContent}
-            </div>
-            ${isUser ? `
-              <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-800 dark:text-blue-200 ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-              </div>
-            ` : ''}
-          </div>
-        `;
+                  <div class="flex items-start ${isUser ? "justify-end" : ""}">
+                    ${!isUser
+                        ? `
+                      <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
+                        <span class="font-semibold text-sm">AR</span>
+                      </div>
+                    `
+                        : ""
+                    }
+                    <div class="${isUser
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-100"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                    } p-3 rounded-lg max-w-[80%] message-content">
+                      ${formattedContent}
+                    </div>
+                    ${isUser
+                        ? `
+                      <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-800 dark:text-blue-200 ml-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                      </div>
+                    `
+                        : ""
+                    }
+                  </div>
+                `;
 
                 messageDiv.innerHTML = html;
                 chatContainer.appendChild(messageDiv);
@@ -570,17 +656,17 @@
 
             // Function to show loading indicator
             function showLoading() {
-                loadingIndicator.classList.remove('hidden');
+                loadingIndicator.classList.remove("hidden");
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
 
             // Function to hide loading indicator
             function hideLoading() {
-                loadingIndicator.classList.add('hidden');
+                loadingIndicator.classList.add("hidden");
             }
 
             // Handle form submission
-            chatForm.addEventListener('submit', async (e) => {
+            chatForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
                 const message = userInput.value.trim();
@@ -590,34 +676,34 @@
                 addMessage(message, true);
 
                 // Clear input
-                userInput.value = '';
+                userInput.value = "";
 
                 // Show loading indicator
                 showLoading();
 
                 try {
                     // Send message to API
-                    const verifiedId = sessionStorage.getItem('verifiedId');
-                    const response = await fetch('/chat', {
-                        method: 'POST',
+                    const verifiedId = sessionStorage.getItem("verifiedId");
+                    const response = await fetch("/chat", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${verifiedId}`
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${verifiedId}`,
                         },
                         body: JSON.stringify({
                             message: message,
-                            model: selectedModel
+                            model: selectedModel,
                         }),
                     });
 
                     if (!response.ok) {
                         // If unauthorized, redirect to login
                         if (response.status === 401) {
-                            sessionStorage.removeItem('verifiedId');
-                            window.location.href = '/login';
+                            sessionStorage.removeItem("verifiedId");
+                            window.location.href = "/login";
                             return;
                         }
-                        throw new Error('API request failed');
+                        throw new Error("API request failed");
                     }
 
                     const data = await response.json();
@@ -627,30 +713,33 @@
 
                     // Add AI response to chat
                     addMessage(data.response);
-
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error("Error:", error);
 
                     // Hide loading indicator
                     hideLoading();
 
                     // Add error message
-                    addMessage('Sorry, there was an error processing your request. Please try again.');
+                    addMessage(
+                        "Sorry, there was an error processing your request. Please try again."
+                    );
                 }
             });
 
             // Handle suggestion button clicks
-            suggestionButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const mainText = button.querySelector('.font-medium').textContent;
-                    const subText = button.querySelector('.text-gray-500, .text-gray-400').textContent;
+            suggestionButtons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const mainText = button.querySelector(".font-medium").textContent;
+                    const subText = button.querySelector(
+                        ".text-gray-500, .text-gray-400"
+                    ).textContent;
                     const fullText = `${mainText} ${subText}`;
 
                     // Set the input value
                     userInput.value = fullText;
 
                     // Submit the form
-                    chatForm.dispatchEvent(new Event('submit'));
+                    chatForm.dispatchEvent(new Event("submit"));
                 });
             });
 

@@ -71,7 +71,7 @@ requires-dist = [
     { name = "arcana-codex", specifier = ">=0.2" },
     { name = "email-validator", specifier = ">=2.2" },
     { name = "fastapi-slim", specifier = ">=0.115" },
-    { name = "groq", specifier = ">=0.20.0" },
+    { name = "groq", specifier = ">=0.20" },
     { name = "huggingface-hub", specifier = ">=0.29" },
     { name = "llama-cpp-python", specifier = ">=0.3" },
     { name = "pillow", specifier = ">=11.1" },
