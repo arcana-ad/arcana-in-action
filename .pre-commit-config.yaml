@@ -13,6 +13,12 @@ repos:
         language: system
         always_run: true
         pass_filenames: false
+      - id: tailwind-sorter-check
+        name: tailwind-sorter-check
+        entry: tailwind-sorter --config pyproject.toml --fix app/static
+        language: system
+        always_run: true
+        pass_filenames: false
       - id: branch-name-and-commit-permission-check
         name: branch name and commit permission check
         entry: bash ./etc/branch-name-check.sh

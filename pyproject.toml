@@ -41,6 +41,7 @@ select = [
     "W",      # pycodestyle warnings
     "F",      # pyflakes
     "I",      # isort
+    "S",      # flake8-bandit
     "B",      # flake8-bugbear
     "C4",     # flake8-comprehensions
     "UP",     # pyupgrade
@@ -62,3 +63,7 @@ backend = "uv"
 
 [tool.versioning.files]
 version_variable = ["app/app/main.py:__version__"]
+
+[tool.tailwind_sorter]
+file_patterns = [".html"]
+class_attributes = ["class"]
