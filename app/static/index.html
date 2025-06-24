@@ -32,13 +32,13 @@
         rel="stylesheet" />
 </head>
 
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-['Inter'] transition-colors duration-200">
+<body class="font-['Inter'] text-gray-800 bg-white transition-colors duration-200 dark:text-gray-200 dark:bg-gray-900">
     <main class="flex flex-col h-screen">
         <!-- Header -->
-        <header class="border-b border-gray-200 dark:border-gray-700 p-4 bg-white dark:bg-gray-800">
-            <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+        <header class="p-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex justify-between items-center mx-auto max-w-screen-xl">
                 <div class="flex items-center">
-                    <h1 class="text-xl font-medium">
+                    <h1 class="font-medium text-xl">
                         OpenGPT with
                         <svg style="
                   display: inline-block;
@@ -89,9 +89,9 @@
                             width="158" />
                     </a>
                     <a href="https://arcana.ad/"
-                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">Home</a>
+                        class="font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Home</a>
                     <button id="logout-button"
-                        class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium">
+                        class="font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                         Logout
                     </button>
                 </nav>
@@ -99,11 +99,11 @@
         </header>
 
         <!-- Model selector -->
-        <div class="border-b border-gray-200 dark:border-gray-700 py-3 px-4 bg-gray-50 dark:bg-gray-800">
-            <div class="max-w-screen-xl mx-auto flex items-center">
+        <div class="px-4 py-3 bg-gray-50 border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center mx-auto max-w-screen-xl">
                 <div class="relative" id="model-selector-container">
                     <button id="model-dropdown-button"
-                        class="flex items-center justify-between w-64 px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="flex justify-between items-center px-4 py-2 w-64 bg-white rounded-md border border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:bg-gray-600">
                         <span id="selected-model-text" class="text-gray-800 dark:text-gray-200">Select a model</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -112,39 +112,39 @@
                         </svg>
                     </button>
                     <div id="model-dropdown"
-                        class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg hidden">
+                        class="hidden absolute z-10 mt-1 w-full bg-white rounded-md border border-gray-300 shadow-lg dark:bg-gray-700 dark:border-gray-600">
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="gemma2">
                                 Gemma2
                             </li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="llama3_1">
                                 Llama3.1
                             </li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="llama3_3">
                                 Llama3.3
                             </li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="qwen2_5">
                                 Qwen2.5
                             </li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="deepseek_r1">
                                 Deepseek_R1
                             </li>
                         </ul>
                         <ul class="py-1">
-                            <li class="model-option px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer text-gray-800 dark:text-gray-200"
+                            <li class="px-4 py-2 text-gray-800 cursor-pointer model-option dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                                 data-value="gemma3">
                                 Gemma3
                             </li>
@@ -155,15 +155,15 @@
         </div>
 
         <!-- Chat container -->
-        <div id="chat-container" class="flex-1 overflow-y-auto py-4 px-4 md:px-0 bg-white dark:bg-gray-900">
-            <div class="max-w-screen-md mx-auto">
+        <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4 bg-white md:px-0 dark:bg-gray-900">
+            <div class="mx-auto max-w-screen-md">
                 <!-- Initial welcome message -->
-                <div class="flex flex-col items-center justify-center mt-16 mb-8">
+                <div class="flex flex-col justify-center items-center mt-16 mb-8">
                     <div
-                        class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-2xl font-semibold mb-4">
+                        class="flex justify-center items-center mb-4 w-16 h-16 font-semibold text-2xl bg-gray-100 rounded-full dark:bg-gray-700">
                         AR
                     </div>
-                    <h2 class="text-2xl font-semibold text-center">Hello, User</h2>
+                    <h2 class="font-semibold text-2xl text-center">Hello, User</h2>
                     <p class="text-2xl text-center">How can I help you today?</p>
                 </div>
 
@@ -173,13 +173,13 @@
 
         <!-- Loading indicator -->
         <div id="loading" class="hidden">
-            <div class="max-w-screen-md mx-auto">
+            <div class="mx-auto max-w-screen-md">
                 <div class="flex items-start mb-4">
                     <div
-                        class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
+                        class="flex justify-center items-center mr-2 w-8 h-8 bg-gray-100 rounded-full dark:bg-gray-700">
                         <span class="font-semibold text-sm">AR</span>
                     </div>
-                    <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                    <div class="p-3 bg-gray-100 rounded-lg dark:bg-gray-700">
                         <div class="typing-indicator">
                             <span class="dot"></span>
                             <span class="dot"></span>
@@ -191,30 +191,30 @@
         </div>
 
         <!-- Suggestion buttons -->
-        <div class="max-w-screen-md mx-auto px-4 md:px-0 mb-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 gap-3 px-4 mx-auto mb-6 max-w-screen-md md:grid-cols-2 md:px-0">
             <button
-                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
+                class="p-4 text-left bg-gray-50 rounded-xl transition-colors dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <div class="font-medium">Create a short 3 scene video script</div>
                 <div class="text-gray-500 text-sm">
                     set in a cyberpunk world run by AI
                 </div>
             </button>
             <button
-                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
+                class="p-4 text-left bg-gray-50 rounded-xl transition-colors dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <div class="font-medium">Write a python code</div>
                 <div class="text-gray-500 text-sm">
                     for a simple, functional web app
                 </div>
             </button>
             <button
-                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
+                class="p-4 text-left bg-gray-50 rounded-xl transition-colors dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <div class="font-medium">Help me study</div>
                 <div class="text-gray-500 text-sm">
                     vocabulary for a college entrance exam
                 </div>
             </button>
             <button
-                class="text-left bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 p-4 rounded-xl transition-colors">
+                class="p-4 text-left bg-gray-50 rounded-xl transition-colors dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <div class="font-medium">Give me ideas</div>
                 <div class="text-gray-500 text-sm">
                     for a LinkedIn post for my recent promotion
@@ -223,11 +223,11 @@
         </div>
 
         <!-- Input area -->
-        <div class="border-t border-gray-200 dark:border-gray-700 px-4 pt-4 bg-white dark:bg-gray-800">
-            <div class="max-w-screen-md mx-auto">
+        <div class="px-4 pt-4 bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="mx-auto max-w-screen-md">
                 <form id="chat-form" class="relative">
                     <div
-                        class="flex items-center bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full shadow-sm">
+                        class="flex items-center bg-white rounded-full border border-gray-300 shadow-sm dark:bg-gray-700 dark:border-gray-600">
                         <button type="button"
                             class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -238,7 +238,7 @@
                             </svg>
                         </button>
                         <input type="text" id="user-input"
-                            class="flex-1 py-3 px-2 bg-transparent focus:outline-none text-gray-800 dark:text-gray-200"
+                            class="flex-1 px-2 py-3 text-gray-800 bg-transparent dark:text-gray-200 focus:outline-none"
                             placeholder="Send a Message" autocomplete="off" />
                         <button type="button"
                             class="p-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300">
@@ -264,8 +264,8 @@
             </div>
         </div>
 
-        <footer class="text-center p-4 text-gray-500 dark:text-gray-400 dark:bg-gray-800 text-sm">
-            <p class="text-gray-400 dark:text-gray-500 p-1">
+        <footer class="p-4 text-center text-gray-500 text-sm dark:text-gray-400 dark:bg-gray-800">
+            <p class="p-1 text-gray-400 dark:text-gray-500">
                 LLMs can make mistakes. Verify important information.
             </p>
             <p class="p-1">© 2025 Arcana Inc. All rights reserved.</p>
@@ -566,7 +566,7 @@
                 codeBlocks.forEach((codeBlock, i) => {
                     text = text.replace(
                         `__CODE_BLOCK_${i}__`,
-                        `<pre><code class="${escapeHtml(codeBlock.lang) ?? "plaintext"
+                        `<pre><code class="${escapeHtml(codeBlock.lang) ?? 'plaintext'
                         }">${escapeHtml(codeBlock.code)}</code></pre>`
                     );
                 });
@@ -620,24 +620,24 @@
                 const formattedContent = isUser ? content : formatMessage(content);
 
                 const html = `
-                  <div class="flex items-start ${isUser ? "justify-end" : ""}">
+                  <div class="flex items-start ${isUser ? 'justify-end' : ''}">
                     ${!isUser
                         ? `
-                      <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mr-2">
+                      <div class="flex justify-center items-center mr-2 w-8 h-8 bg-gray-100 rounded-full dark:bg-gray-700">
                         <span class="font-semibold text-sm">AR</span>
                       </div>
                     `
                         : ""
                     }
                     <div class="${isUser
-                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-100"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-100'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
                     } p-3 rounded-lg max-w-[80%] message-content">
                       ${formattedContent}
                     </div>
                     ${isUser
                         ? `
-                      <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-800 dark:text-blue-200 ml-2">
+                      <div class="flex justify-center items-center ml-2 w-8 h-8 text-blue-800 bg-blue-100 rounded-full dark:text-blue-200 dark:bg-blue-900/50">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
                       </div>
                     `
