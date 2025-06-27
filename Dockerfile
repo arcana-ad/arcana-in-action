@@ -28,12 +28,12 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -u 1000 arcana
-USER arcana
+RUN useradd -m -u 1000 atheon
+USER atheon
 
-COPY --chown=arcana --from=builder /.venv /.venv
+COPY --chown=atheon --from=builder /.venv /.venv
 
-COPY --chown=arcana ./app /app
+COPY --chown=atheon ./app /app
 
 ENV PATH="/.venv/bin:$PATH"
 ENV PYTHONPATH="/app:/.venv/lib/python3.13/dist-packages"
