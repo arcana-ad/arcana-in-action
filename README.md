@@ -1,5 +1,5 @@
 ---
-title: Arcana In Action
+title: Atheon In Action
 emoji: 💸
 colorFrom: blue
 colorTo: green

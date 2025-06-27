@@ -1,7 +1,7 @@
 [project]
-name = "arcana-in-action"
+name = "atheon-in-action"
 version = "0.0.0"
-description = "Huggingface Demo showcasing how Arcana works"
+description = "Huggingface Demo showcasing how Atheon works"
 authors = [{ name = "Saurabh Ghanekar", email = "ghanekarsaurabh8@gmail.com" }]
 license = "BSD-2-Clause"
 license-files = ["LICENSE"]
@@ -12,7 +12,7 @@ dependencies = [
     "uvicorn>=0.34",
     "pydantic>=2.10",
     "pillow>=11.1",
-    "arcana-codex>=0.2",
+    "atheon-codex>=0.3",
     "llama-cpp-python>=0.3",
     "huggingface-hub>=0.29",
     "pymongo>=4.11",
