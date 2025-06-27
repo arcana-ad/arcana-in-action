@@ -6,10 +6,10 @@ from datetime import UTC, datetime
 from enum import StrEnum
 from typing import Annotated
 
-from arcana_codex import (
+from atheon_codex import (
     AdUnitsFetchModel,
     AdUnitsIntegrateModel,
-    ArcanaCodexClient,
+    AtheonCodexClient,
 )
 from bson.objectid import ObjectId
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, status
@@ -126,7 +126,7 @@ def process_groq_chat_request(
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
     # Set API key in FastAPI app
-    app.ARCANA_API_KEY = os.environ.get("ARCANA_API_KEY", "")
+    app.ATHEON_API_KEY = os.environ.get("ATHEON_API_KEY", "")
 
     app.groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
@@ -139,7 +139,7 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
     yield
 
     # Clear API key to avoid leaking it
-    app.ARCANA_API_KEY = ""
+    app.ATHEON_API_KEY = ""
 
     app.groq_client = None
 
@@ -183,7 +183,7 @@ def chat(
 ):
     logger.info(f"Received message: {payload.message}")
 
-    client = ArcanaCodexClient(api_key=request.app.ARCANA_API_KEY)
+    client = AtheonCodexClient(api_key=request.app.ATHEON_API_KEY)
     fetch_payload = AdUnitsFetchModel(query=payload.message)
     ad_fetch_response = client.fetch_ad_units(fetch_payload)
 
