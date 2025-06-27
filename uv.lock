@@ -27,15 +27,15 @@ wheels = [
 
 [[package]]
 name = "atheon-codex"
-version = "0.3.0"
+version = "0.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/49/1b/96e2f51fbb2e1ef3587c06865a6f2507493b7cf9af1c3e5c9894f7c32009/atheon_codex-0.3.0.tar.gz", hash = "sha256:b067c8b50a62ae52599ff513cc05c51b274a0703118798025ac1cb8f7aace76a", size = 45283, upload-time = "2025-06-26T22:39:11.105Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/bb/c0/9919025d2cdcec9993af6e8f1c9dddad8777e95dc62b008d9aebbd1e0042/atheon_codex-0.3.1.tar.gz", hash = "sha256:16bc7ce7abe91ef47d89f10bfea458ef3331ca17e04eeb6ad88a73b8bb0f265f", size = 45378, upload-time = "2025-06-27T17:01:42.185Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8b/dd/99be42d9e2e16c4676d2c6beb9c1402325e2b920468fe2c554e36d670283/atheon_codex-0.3.0-py3-none-any.whl", hash = "sha256:382631e5fcf3736705f08bd6532c15ed872b91c616aa3ffab7f6a896ad944460", size = 10861, upload-time = "2025-06-26T22:39:10.027Z" },
+    { url = "https://files.pythonhosted.org/packages/20/c6/31b1525a6a3cc11f1e05c77be1dd2e98dc28f35c2affc7a4e8c2990cb669/atheon_codex-0.3.1-py3-none-any.whl", hash = "sha256:d032c17db62d1ae3cca79be0b02a98b52c93858af0716bfe4e1cf0c9f1188d25", size = 10982, upload-time = "2025-06-27T17:01:41.098Z" },
 ]
 
 [[package]]
@@ -69,7 +69,7 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "atheon-codex", specifier = ">=0.3" },
+    { name = "atheon-codex", specifier = ">=0.3.1" },
     { name = "email-validator", specifier = ">=2.2" },
     { name = "fastapi-slim", specifier = ">=0.115" },
     { name = "groq", specifier = ">=0.20" },
